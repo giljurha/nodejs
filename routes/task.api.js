@@ -1,22 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const bodyParser = require('body-parser');
-const indexRouter = require('./routes/index');
-const app = express();
-app.use(bodyParser.json());
-app.use('/api', indexRouter);
-router.post('/', (req, res) => {
-    res.send("create task");
-});
+const taskController = require('../controller/task.controller');
 
-router.get('/', (req, res) => {
-    res.send("get all tasks");
-});
+// Create a new task
+router.post('/', taskController.createTask);
 
-router.put('/:id', (req, res) => {
-    res.send(`update task with id ${req.params.id}`);
-});
+// Get all tasks (or a specific task if you modify the controller)
+router.get('/', taskController.getTask);
 
-router.delete('/:id', (req, res) => {
-    res.send(`delete task with id ${req.params.id}`);
-}); 
+// Update a task by ID
+router.put('/:id', taskController.updateTask);
+
+// Delete a task by ID
+router.delete('/:id', taskController.deleteTask);
+
+module.exports = router;

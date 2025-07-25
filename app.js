@@ -1,10 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+//const cors = require('cors');
 const app = express();
+require('dotenv').config();
+//app.use(cors());
 app.use(bodyParser.json());
 app.use('/api', require('./routes/index'));
-const mongoURI = 'mongodb://localhost:27017/mydatabase';
+
+const MONGODB_URI_PROD = process.env.MONGODB_URI_PROD;
+const mongoURI = MONGODB_URI_PROD;
 
 mongoose.connect(mongoURI, { useNewUrlParser: true}).then(() => {
     console.log('MongoDB connected successfully');
